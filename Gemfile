@@ -42,4 +42,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
+  gem 'pry-byebug', '~> 3.9.0'
 end
