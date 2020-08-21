@@ -246,3 +246,20 @@ EmployeeTime - represents each line in the imported csv + additional information
 
 ##### Non database models
 EmployeePeriodPayrollReport - represents each line in the generated report (hold data and help with displaying)
+
+##### Questions 
+1) How did you test that your implementation was correct?
+- having unit tests
+- running it locally (upload the csv file and hitting the payroll report to see the generated report + some spot checks from the csv to generated report)
+
+2) If this application was destined for a production environment, what would you add or change?
+- use PostgreSQL or MySQL for the relational database since sqlite is for prototyping only
+- add a linting program like Rubocop (easier to add it now than later where there could be very different code style across the files)
+- add a CI pipeline (something that will run all the unit tests when a commit or PR is merged to master)
+
+3) What compromises did you have to make as a result of the time constraints of this challenge?
+- handling edge cases for csv imports, currently assuming best case scenario only 
+  edge case ex:
+    -if two csv files import the same record, what happens?
+    -if duplicate records happen in a same file, what happens?
+- handling the csv import asynchronously via a background worker like Sidekiq (might not be needed, depends if the csv file will be big)
