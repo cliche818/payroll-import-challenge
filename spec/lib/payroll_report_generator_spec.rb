@@ -30,5 +30,23 @@ RSpec.describe PayrollReportGenerator do
       expect(third_report.pay_period_end_date).to eq(Date.new(2020, 1, 15))
       expect(third_report.amount_paid).to eq(90)
     end
+
+    it 'should return a list of employee reports in order of employee id then pay_period_start_date' do
+      EmployeeTime.create(date: Date.new(2020, 1, 4), pay_period_start_date: Date.new(2020, 1, 1), pay_period_end_date: Date.new(2020, 1, 15), hours_worked: 3, employee_id: '3', job_group: 'B')
+      EmployeeTime.create(date: Date.new(2020, 1, 17), pay_period_start_date: Date.new(2020, 1, 16), pay_period_end_date: Date.new(2020, 1, 31), hours_worked: 10, employee_id: '1', job_group: 'A')
+      EmployeeTime.create(date: Date.new(2020, 1, 14), pay_period_start_date: Date.new(2020, 1, 1), pay_period_end_date: Date.new(2020, 1, 15), hours_worked: 5, employee_id: '1', job_group: 'A')
+
+      report_list = PayrollReportGenerator.new.report
+
+      expect(report_list.size).to eq(3)
+      expect(report_list[0].employee_id).to eq('1')
+      expect(report_list[0].pay_period_start_date).to eq(Date.new(2020, 1, 1))
+      
+      expect(report_list[1].employee_id).to eq('1')
+      expect(report_list[1].pay_period_start_date).to eq(Date.new(2020, 1, 16))
+
+      expect(report_list[2].employee_id).to eq('3')
+      expect(report_list[2].pay_period_start_date).to eq(Date.new(2020, 1, 1))
+    end
   end
 end

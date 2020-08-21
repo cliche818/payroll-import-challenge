@@ -3,6 +3,7 @@ class PayrollReportGenerator
     grouped_employee_times = EmployeeTime
     .select(:employee_id, :job_group, :pay_period_start_date, :pay_period_end_date, "SUM(hours_worked) as total_hours")
     .group(:employee_id, :job_group, :pay_period_start_date, :pay_period_end_date)
+    .order(:employee_id, :pay_period_start_date)
 
     report_list = []
     grouped_employee_times.each do |group_employee_time|
