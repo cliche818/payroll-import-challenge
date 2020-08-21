@@ -12,8 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2020_08_20_222701) do
 
-  create_table "raw_employee_times", force: :cascade do |t|
-    t.datetime "date"
+  create_table "employee_times", force: :cascade do |t|
+    t.date "date"
+    t.date "pay_period_start_date"
+    t.date "pay_period_end_date"
     t.float "hours_worked"
     t.string "employee_id"
     t.string "job_group"
