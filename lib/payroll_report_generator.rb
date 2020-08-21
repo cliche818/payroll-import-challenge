@@ -20,6 +20,10 @@ class PayrollReportGenerator
   private
 
   def calculate_amount_paid(job_group, hours_worked)
-    0 # TODO: add actual calculations
+    if job_group == 'A'
+      hours_worked * 20
+    elsif job_group == 'B'
+      hours_worked * 30  
+    end  
   end
 end  
