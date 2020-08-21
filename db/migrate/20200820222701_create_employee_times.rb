@@ -7,6 +7,7 @@ class CreateEmployeeTimes < ActiveRecord::Migration[6.0]
       t.float :hours_worked
       t.string :employee_id
       t.string :job_group
+      t.timestamps
     end
   end
 end

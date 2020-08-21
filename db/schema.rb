@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_222701) do
+ActiveRecord::Schema.define(version: 2020_08_21_151701) do
 
   create_table "employee_times", force: :cascade do |t|
     t.date "date"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 2020_08_20_222701) do
     t.float "hours_worked"
     t.string "employee_id"
     t.string "job_group"
+  end
+
+  create_table "time_reports", force: :cascade do |t|
+    t.string "report_file_name"
+    t.integer "report_id"
+    t.string "upload_status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

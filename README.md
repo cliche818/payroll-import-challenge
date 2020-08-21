@@ -253,7 +253,7 @@ EmployeePeriodPayrollReport - represents each line in the generated report (hold
 - running it locally (upload the csv file and hitting the payroll report to see the generated report + some spot checks from the csv to generated report)
 
 2) If this application was destined for a production environment, what would you add or change?
-- use PostgreSQL or MySQL for the relational database since sqlite is for prototyping only
+- use PostgreSQL or MySQL for the relational database since sqlite is for prototyping only (will need to added indices for the group by query I am using)
 - add a linting program like Rubocop (easier to add it now than later where there could be very different code style across the files)
 - add a CI pipeline (something that will run all the unit tests when a commit or PR is merged to master)
 
