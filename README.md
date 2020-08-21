@@ -238,12 +238,12 @@ prerequisites: requires rbenv/rvm for installing ruby and gem install bundler
 #### High level design
 
 ##### Helper Libraries
-time_report_csv_importer - responsible for taking csv file path and saving EmployeeTime records plus extra data (pay period start and end date for easier report generation)
-pay_roll_report_generator - run SQL to generate the payroll report
+- time_report_csv_importer - responsible for taking csv file path and saving EmployeeTime records plus extra data (pay period start and end date for easier report generation)
+- pay_roll_report_generator - run SQL to generate the payroll report
 
 ##### Models
-EmployeeTime - represents each line in the imported csv + additional information (used for generating payroll report)
-TimeReport - response each csv file uploaded and related info
+- EmployeeTime - represents each line in the imported csv + additional information (used for generating payroll report)
+- TimeReport - response each csv file uploaded and related info
 
 ##### Non database models
 EmployeePeriodPayrollReport - represents each line in the generated report (hold data and help with displaying)
@@ -255,6 +255,7 @@ EmployeePeriodPayrollReport - represents each line in the generated report (hold
 
 2) If this application was destined for a production environment, what would you add or change?
 - use PostgreSQL or MySQL for the relational database since sqlite is for prototyping only (will need to added indices for the group by query I am using)
+- link each EmployeeTime to TimeReport (for debugging purposes: which records came from which files)
 - handle more edge cases for file upload (requires more discussion)
 - add a linting program like Rubocop (easier to add it now than later where there could be very different code style across the files)
 - add a CI pipeline (something that will run all the unit tests when a commit or PR is merged to master)
