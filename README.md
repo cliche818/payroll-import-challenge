@@ -243,6 +243,7 @@ pay_roll_report_generator - run SQL to generate the payroll report
 
 ##### Models
 EmployeeTime - represents each line in the imported csv + additional information (used for generating payroll report)
+TimeReport - response each csv file uploaded and related info
 
 ##### Non database models
 EmployeePeriodPayrollReport - represents each line in the generated report (hold data and help with displaying)
@@ -254,12 +255,18 @@ EmployeePeriodPayrollReport - represents each line in the generated report (hold
 
 2) If this application was destined for a production environment, what would you add or change?
 - use PostgreSQL or MySQL for the relational database since sqlite is for prototyping only (will need to added indices for the group by query I am using)
+- handle more edge cases for file upload (requires more discussion)
 - add a linting program like Rubocop (easier to add it now than later where there could be very different code style across the files)
 - add a CI pipeline (something that will run all the unit tests when a commit or PR is merged to master)
 
 3) What compromises did you have to make as a result of the time constraints of this challenge?
-- handling edge cases for csv imports, currently assuming best case scenario only 
+- handling edge cases for csv imports, assuming best case scenario only, filename checking and only upload same report once
   edge case ex:
     -if two csv files import the same record, what happens?
     -if duplicate records happen in a same file, what happens?
-- handling the csv import asynchronously via a background worker like Sidekiq (might not be needed, depends if the csv file will be big)
+- handling the csv import asynchronously via a background worker like Sidekiq (probably not needed, depends if the csv file will be big)
+
+##### payroll report output for only time-report-42.csv
+ ```javascript
+{"payrollReport":{"employeeReports":[{"employeeId":"1","payPeriod":{"startDate":"2016-11-01","endDate":"2016-11-15"},"amountPaid":"$150.00"},{"employeeId":"1","payPeriod":{"startDate":"2016-11-16","endDate":"2016-11-30"},"amountPaid":"$220.00"},{"employeeId":"1","payPeriod":{"startDate":"2016-12-01","endDate":"2016-12-15"},"amountPaid":"$150.00"},{"employeeId":"1","payPeriod":{"startDate":"2016-12-16","endDate":"2016-12-31"},"amountPaid":"$220.00"},{"employeeId":"2","payPeriod":{"startDate":"2016-11-01","endDate":"2016-11-15"},"amountPaid":"$930.00"},{"employeeId":"2","payPeriod":{"startDate":"2016-12-01","endDate":"2016-12-15"},"amountPaid":"$930.00"},{"employeeId":"3","payPeriod":{"startDate":"2016-11-01","endDate":"2016-11-15"},"amountPaid":"$590.00"},{"employeeId":"3","payPeriod":{"startDate":"2016-12-01","endDate":"2016-12-15"},"amountPaid":"$470.00"},{"employeeId":"4","payPeriod":{"startDate":"2015-02-16","endDate":"2015-02-28"},"amountPaid":"$100.00"},{"employeeId":"4","payPeriod":{"startDate":"2016-02-16","endDate":"2016-02-29"},"amountPaid":"$150.00"},{"employeeId":"4","payPeriod":{"startDate":"2016-11-01","endDate":"2016-11-15"},"amountPaid":"$150.00"},{"employeeId":"4","payPeriod":{"startDate":"2016-11-16","endDate":"2016-11-30"},"amountPaid":"$450.00"},{"employeeId":"4","payPeriod":{"startDate":"2016-12-01","endDate":"2016-12-15"},"amountPaid":"$150.00"},{"employeeId":"4","payPeriod":{"startDate":"2016-12-16","endDate":"2016-12-31"},"amountPaid":"$450.00"}]}}
+ ```
