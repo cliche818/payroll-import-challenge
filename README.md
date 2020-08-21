@@ -216,3 +216,33 @@ Evaluation of your submission will be based on the following criteria.
    they explained?
 1. Did you separate any concerns in your application? Why or why not?
 1. Does your solution use appropriate data types for the problem as described?
+
+## Jeff Documentation
+
+#### Installation instructions
+used ruby version 2.7.1 to develop, uses sqlite for relational database
+prerequisites: requires rbenv/rvm for installing ruby and gem install bundler
+
+1) run bundle install
+2) run migrations:
+  a) rails db:setup
+  b) RAILS_ENV=test rails db:setup
+3) for unit tests: rspec
+4) to run the server: rails s (will be available at localhost:3000 by default)
+
+#### available routes
+1)
+
+2) /payroll_report - returns the report of all EmployeeTime from all imported csv files so far
+
+#### High level design
+
+##### Helper Libraries
+time_report_csv_importer - responsible for taking csv file path and saving EmployeeTime records plus extra data (pay period start and end date for easier report generation)
+pay_roll_report_generator - run SQL to generate the payroll report
+
+##### Models
+EmployeeTime - represents each line in the imported csv + additional information (used for generating payroll report)
+
+##### Non database models
+EmployeePeriodPayrollReport - represents each line in the generated report (hold data and help with displaying)
