@@ -2,10 +2,14 @@ class TimeReportController < ApplicationController
   def create
     file = params[:file]
 
+    unless /time-report-\d+.csv/.match file.original_filename
+      render json: {error: 'Filename should be named time-report-ID.csv, ID being integer'}, status: 400 and return
+    end  
+
     report_id = file.original_filename.split('-').last
 
     if TimeReport.exists?(report_id: report_id)
-      render json: {error: "#{file.original_filename} has been uploaded already"} and return
+      render json: {error: "#{file.original_filename} has been uploaded already"}, status: 400 and return
     end  
 
     unless Dir.exist?(Rails.root.to_s + "/files_storage")

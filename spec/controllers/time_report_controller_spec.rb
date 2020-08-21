@@ -28,6 +28,17 @@ RSpec.describe TimeReportController do
 
       json = JSON.parse(response.body)
       expect(json["error"]).to eq('time-report-10.csv has been uploaded already')
+      expect(response.status).to eq(400)
+    end
+
+    it 'should return an error message if the file does not conform to the expected fileanem time-report-x.csv' do
+      file = Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/bad-name-report.csv", 'text/csv')
+
+      post :create, params: { file: file }
+
+      json = JSON.parse(response.body)
+      expect(json["error"]).to eq('Filename should be named time-report-ID.csv, ID being integer')
+      expect(response.status).to eq(400)
     end
   end
 end    

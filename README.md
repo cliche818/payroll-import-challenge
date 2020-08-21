@@ -231,9 +231,9 @@ prerequisites: requires rbenv/rvm for installing ruby and gem install bundler
 4) to run the server: rails s (will be available at localhost:3000 by default)
 
 #### available routes
-1)
+1) /time_report - POST request ex: `curl -F 'file=@"time-report-42.csv"' localhost:3000/time_report` while in project root directory
 
-2) /payroll_report - returns the report of all EmployeeTime from all imported csv files so far
+2) /payroll_report - GET returns the report of all EmployeeTime from all imported csv files so far, ex: localhost:3000/payroll_report
 
 #### High level design
 
