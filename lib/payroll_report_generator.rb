@@ -22,9 +22,9 @@ class PayrollReportGenerator
 
   def calculate_amount_paid(job_group, hours_worked)
     if job_group == 'A'
-      hours_worked * 20
+      hours_worked * Money.new(2000, 'CAD')
     elsif job_group == 'B'
-      hours_worked * 30  
+      hours_worked * Money.new(3000, 'CAD')
     end  
   end
 end  

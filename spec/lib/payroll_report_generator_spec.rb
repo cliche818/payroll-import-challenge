@@ -16,19 +16,19 @@ RSpec.describe PayrollReportGenerator do
       expect(first_report.employee_id).to eq('1')
       expect(first_report.pay_period_start_date).to eq(Date.new(2020, 1, 1))
       expect(first_report.pay_period_end_date).to eq(Date.new(2020, 1, 15))
-      expect(first_report.amount_paid).to eq(300)
+      expect(first_report.amount_paid).to eq(Money.new(30000, 'CAD'))
 
       second_report = report_list[1]
       expect(second_report.employee_id).to eq('1')
       expect(second_report.pay_period_start_date).to eq(Date.new(2020, 1, 16))
       expect(second_report.pay_period_end_date).to eq(Date.new(2020, 1, 31))
-      expect(second_report.amount_paid).to eq(80)
+      expect(second_report.amount_paid).to eq(Money.new(8000, 'CAD'))
 
       third_report = report_list.last
       expect(third_report.employee_id).to eq('2')
       expect(third_report.pay_period_start_date).to eq(Date.new(2020, 1, 1))
       expect(third_report.pay_period_end_date).to eq(Date.new(2020, 1, 15))
-      expect(third_report.amount_paid).to eq(90)
+      expect(third_report.amount_paid).to eq(Money.new(9000, 'CAD'))
     end
 
     it 'should return a list of employee reports in order of employee id then pay_period_start_date' do
